@@ -45,9 +45,7 @@ public class SocketMessageReceiver implements MessageReceiver {
     public Message receiveMessage() throws InterruptedException {
         try {
             return (Message) inputStream.readObject();
-        } catch (EOFException e) {
-            return null;
-        } catch (SocketException e) {
+        } catch (EOFException | SocketException e) {
             throw new InterruptedException("Socket closed: " + e.getMessage());
         } catch (IOException | ClassNotFoundException e) {
             throw new InterruptedException("Socket receive failed: " + e.getMessage());
